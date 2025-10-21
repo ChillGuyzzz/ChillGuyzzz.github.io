@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Projects Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            outline: none;
+            transition: transform 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .filter-btn {
+            background: white;
+            border: none;
+            padding: 10px 25px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .filter-btn.active {
+            background: #ffd700;
+            font-weight: bold;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            animation: fadeIn 1.4s ease;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            animation: slideUp 0.6s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .project-card:hover .project-header::before {
+            right: -30%;
+        }
+
+        .project-header h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-category {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-body {
+            padding: 20px;
+        }
+
+        .project-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .project-team {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .project-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-ongoing {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-planning {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .detail-page {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .detail-page.active {
+            display: block;
+        }
+
+        .back-button {
+            background: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 25px rgba(0,0,0,0.3);
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .detail-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .detail-header h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .detail-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .detail-section {
+            margin-bottom: 30px;
+        }
+
+        .detail-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .detail-section p, .detail-section ul {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .detail-section ul {
+            list-style-position: inside;
+            padding-left: 20px;
+        }
+
+        .detail-section li {
+            margin-bottom: 10px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .team-member {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .team-member strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .team-member span {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-card {
+                padding: 20px;
+            }
+
+            .detail-header h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="homePage">
+            <header>
+                <h1>🎓 Our Project Portfolio</h1>
+                <p>Showcasing Innovation and Collaboration</p>
+            </header>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Search projects...">
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="Web Development">Web Development</button>
+                <button class="filter-btn" data-filter="Mobile App">Mobile App</button>
+                <button class="filter-btn" data-filter="AI/ML">AI/ML</button>
+                <button class="filter-btn" data-filter="IoT">IoT</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+
+        <div id="detailPage" class="detail-page">
+            <button class="back-button" onclick="showHome()">← Back to Projects</button>
+            <div class="detail-card" id="detailContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const projects = [
+            {
+                id: 1,
+                title: "Smart Campus Navigation",
+                category: "Mobile App",
+                description: "An innovative AR-based navigation app helping students find their way around campus with real-time directions and building information.",
+                status: "completed",
+                team: 4,
+                fullDescription: "This project revolutionizes campus navigation by integrating augmented reality technology with GPS tracking. Students can point their phones at buildings to see information overlays, find the shortest routes to classes, and discover campus facilities.",
+                objectives: [
+                    "Reduce time students spend finding classrooms",
+                    "Provide real-time campus event information",
+                    "Create an accessible interface for all users",
+                    "Integrate with campus services"
+                ],
+                technologies: ["React Native", "ARKit", "Firebase", "Google Maps API"],
+                teamMembers: [
+                    { name: "Sarah Johnson", role: "Project Lead" },
+                    { name: "Mike Chen", role: "AR Developer" },
+                    { name: "Emily Rodriguez", role: "Backend Developer" },
+                    { name: "James Kim", role: "UI/UX Designer" }
+                ],
+                duration: "6 months",
+                outcome: "Successfully deployed to 500+ students with 4.8/5 rating"
+            },
+            {
+                id: 2,
+                title: "AI Study Buddy",
+                category: "AI/ML",
+                description: "Machine learning powered study assistant that creates personalized quiz questions and study plans based on your learning patterns.",
+                status: "ongoing",
+                team: 3,
+                fullDescription: "An intelligent tutoring system that adapts to individual learning styles. The AI analyzes study habits, identifies weak areas, and generates customized content to optimize learning efficiency.",
+                objectives: [
+                    "Personalize learning experiences for each student",
+                    "Identify knowledge gaps automatically",
+                    "Generate practice questions from course materials",
+                    "Track progress over time"
+                ],
+                technologies: ["Python", "TensorFlow", "Natural Language Processing", "Django"],
+                teamMembers: [
+                    { name: "Alex Thompson", role: "ML Engineer" },
+                    { name: "Priya Patel", role: "Data Scientist" },
+                    { name: "David Lee", role: "Full Stack Developer" }
+                ],
+                duration: "8 months (ongoing)",
+                outcome: "Currently in beta testing with 100 students"
+            },
+            {
+                id: 3,
+                title: "EcoTrack Dashboard",
+                category: "Web Development",
+                description: "Interactive web platform tracking university sustainability metrics including energy usage, waste management, and carbon footprint.",
+                status: "completed",
+                team: 5,
+                fullDescription: "A comprehensive sustainability tracking system that visualizes environmental data across campus. Features real-time monitoring, historical trends, and predictive analytics for resource management.",
+                objectives: [
+                    "Monitor campus environmental impact",
+                    "Visualize sustainability trends",
+                    "Enable data-driven decision making",
+                    "Engage students in sustainability efforts"
+                ],
+                technologies: ["React", "Node.js", "MongoDB", "Chart.js", "WebSocket"],
+                teamMembers: [
+                    { name: "Lisa Anderson", role: "Frontend Developer" },
+                    { name: "Tom Bradley", role: "Backend Developer" },
+                    { name: "Nina Foster", role: "Data Analyst" },
+                    { name: "Robert Mills", role: "DevOps Engineer" },
+                    { name: "Sophie Turner", role: "UX Designer" }
+                ],
+                duration: "5 months",
+                outcome: "Adopted by campus sustainability office for official reporting"
+            },
+            {
+                id: 4,
+                title: "Smart Classroom System",
+                category: "IoT",
+                description: "IoT-based classroom management system controlling lighting, temperature, and occupancy tracking for optimal learning environments.",
+                status: "planning",
+                team: 4,
+                fullDescription: "An integrated IoT solution that automates classroom environmental controls. Sensors monitor occupancy, air quality, and lighting to create ideal learning conditions while optimizing energy consumption.",
+                objectives: [
+                    "Automate classroom environmental controls",
+                    "Reduce energy consumption",
+                    "Monitor air quality and comfort levels",
+                    "Provide usage analytics to administration"
+                ],
+                technologies: ["Arduino", "Raspberry Pi", "MQTT", "Python", "InfluxDB"],
+                teamMembers: [
+                    { name: "Kevin Zhang", role: "IoT Developer" },
+                    { name: "Maria Garcia", role: "Hardware Engineer" },
+                    { name: "Chris Wong", role: "Systems Architect" },
+                    { name: "Amanda Brooks", role: "Data Engineer" }
+                ],
+                duration: "Planned 7 months",
+                outcome: "Awaiting approval and funding"
+            },
+            {
+                id: 5,
+                title: "Virtual Lab Simulator",
+                category: "Web Development",
+                description: "Web-based virtual laboratory for chemistry experiments allowing students to conduct safe experiments online with realistic simulations.",
+                status: "ongoing",
+                team: 6,
+                fullDescription: "A comprehensive virtual laboratory platform that simulates real chemistry experiments. Students can safely explore dangerous reactions, practice techniques, and learn experimental design in a risk-free environment.",
+                objectives: [
+                    "Provide safe experimental environment",
+                    "Reduce laboratory resource costs",
+                    "Enable remote learning capabilities",
+                    "Track student experiment progress"
+                ],
+                technologies: ["Three.js", "WebGL", "React", "Physics Engine", "AWS"],
+                teamMembers: [
+                    { name: "Dr. Rachel Green", role: "Faculty Advisor" },
+                    { name: "Jake Morrison", role: "3D Developer" },
+                    { name: "Olivia Chen", role: "Physics Programmer" },
+                    { name: "Lucas Brown", role: "Frontend Developer" },
+                    { name: "Emma Wilson", role: "Content Creator" },
+                    { name: "Noah Davis", role: "QA Engineer" }
+                ],
+                duration: "10 months (ongoing)",
+                outcome: "Alpha version tested by 50 chemistry students"
+            },
+            {
+                id: 6,
+                title: "Campus Event Manager",
+                category: "Mobile App",
+                description: "Mobile application for discovering, creating, and managing campus events with integrated social features and ticketing system.",
+                status: "completed",
+                team: 3,
+                fullDescription: "A unified platform for all campus events, from club meetings to major concerts. Features include event discovery, RSVP management, ticket sales, and social engagement tools.",
+                objectives: [
+                    "Centralize campus event information",
+                    "Streamline event organization",
+                    "Increase student engagement",
+                    "Provide analytics to event organizers"
+                ],
+                technologies: ["Flutter", "Firebase", "Stripe API", "Push Notifications"],
+                teamMembers: [
+                    { name: "Isabella Martinez", role: "Mobile Developer" },
+                    { name: "Ethan Taylor", role: "Backend Developer" },
+                    { name: "Ava Johnson", role: "UI/UX Designer" }
+                ],
+                duration: "4 months",
+                outcome: "3000+ downloads with 200+ events listed monthly"
+            }
+        ];
+
+        function renderProjects(projectsToRender) {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+            
+            projectsToRender.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.onclick = () => showDetail(project.id);
+                
+                const statusClass = `status-${project.status}`;
+                const statusText = project.status.charAt(0).toUpperCase() + project.status.slice(1);
+                
+                card.innerHTML = `
+                    <div class="project-header">
+                        <h3>${project.title}</h3>
+                        <span class="project-category">${project.category}</span>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-meta">
+                            <span class="project-team">👥 ${project.team} members</span>
+                            <span class="project-status ${statusClass}">${statusText}</span>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function showDetail(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            const detailContent = document.getElementById('detailContent');
+            
+            detailContent.innerHTML = `
+                <div class="detail-header">
+                    <h2>${project.title}</h2>
+                    <div class="detail-tags">
+                        <span class="tag">${project.category}</span>
+                        <span class="tag">👥 ${project.team} Team Members</span>
+                        <span class="tag">⏱️ ${project.duration}</span>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>📋 Project Overview</h3>
+                    <p>${project.fullDescription}</p>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>🎯 Objectives</h3>
+                    <ul>
+                        ${project.objectives.map(obj => `<li>${obj}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>💻 Technologies Used</h3>
+                    <div class="detail-tags">
+                        ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>👨‍💻 Team Members</h3>
+                    <div class="team-grid">
+                        ${project.teamMembers.map(member => `
+                            <div class="team-member">
+                                <strong>${member.name}</strong>
+                                <span>${member.role}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>📊 Outcome</h3>
+                    <p>${project.outcome}</p>
+                </div>
+            `;
+            
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('detailPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showHome() {
+            document.getElementById('detailPage').classList.remove('active');
+            document.getElementById('homePage').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            
+            let filtered = projects;
+            
+            if (activeFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === activeFilter);
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(p => 
+                    p.title.toLowerCase().includes(searchTerm) ||
+                    p.description.toLowerCase().includes(searchTerm) ||
+                    p.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderProjects(filtered);
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                const filter = e.target.dataset.filter;
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                
+                let filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+                
+                if (searchTerm) {
+                    filtered = filtered.filter(p => 
+                        p.title.toLowerCase().includes(searchTerm) ||
+                        p.description.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                renderProjects(filtered);
+            });
+        });
+
+        renderProjects(projects);
+    </script>
+</body>
+</html>

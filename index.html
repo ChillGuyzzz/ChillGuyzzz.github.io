@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University Projects Portfolio</title>
+    <title>Chill GUYZZZ - Project Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -30,6 +30,17 @@
             animation: fadeInDown 0.8s ease;
         }
 
+        .team-logo {
+            font-size: 4em;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
         header h1 {
             font-size: 3em;
             margin-bottom: 10px;
@@ -39,6 +50,13 @@
         header p {
             font-size: 1.2em;
             opacity: 0.9;
+        }
+
+        .team-tagline {
+            font-style: italic;
+            font-size: 1em;
+            margin-top: 5px;
+            opacity: 0.8;
         }
 
         .search-bar {
@@ -178,26 +196,13 @@
             font-size: 0.9em;
         }
 
-        .project-status {
+        .project-year {
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.85em;
             font-weight: bold;
-        }
-
-        .status-completed {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-ongoing {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .status-planning {
-            background: #d1ecf1;
-            color: #0c5460;
+            background: #e3f2fd;
+            color: #1976d2;
         }
 
         .detail-page {
@@ -286,7 +291,7 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 15px;
         }
 
@@ -295,17 +300,41 @@
             padding: 15px;
             border-radius: 10px;
             text-align: center;
-        }
-
-        .team-member strong {
+            font-weight: 500;
             color: #333;
-            display: block;
-            margin-bottom: 5px;
         }
 
-        .team-member span {
-            color: #999;
-            font-size: 0.9em;
+        .github-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #24292e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .github-link:hover {
+            background: #0366d6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .web-link {
+            background: #28a745;
+        }
+
+        .web-link:hover {
+            background: #218838;
         }
 
         @keyframes fadeIn {
@@ -355,6 +384,10 @@
             .detail-header h2 {
                 font-size: 1.8em;
             }
+
+            .team-logo {
+                font-size: 3em;
+            }
         }
     </style>
 </head>
@@ -362,8 +395,10 @@
     <div class="container">
         <div id="homePage">
             <header>
-                <h1>🎓 Our Project Portfolio</h1>
-                <p>Showcasing Innovation and Collaboration</p>
+                <div class="team-logo">😎</div>
+                <h1>Chill Guyzz</h1>
+                <p>Our University Project Portfolio</p>
+                <!-- <p class="team-tagline">Based on the internet meme "chill guy"</p> -->
             </header>
 
             <div class="search-bar">
@@ -372,10 +407,8 @@
 
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="Web Development">Web Development</button>
-                <button class="filter-btn" data-filter="Mobile App">Mobile App</button>
-                <button class="filter-btn" data-filter="AI/ML">AI/ML</button>
-                <button class="filter-btn" data-filter="IoT">IoT</button>
+                <button class="filter-btn" data-filter="1st Year">1st Year</button>
+                <button class="filter-btn" data-filter="2nd Year">2nd Year</button>
             </div>
 
             <div class="projects-grid" id="projectsGrid"></div>
@@ -391,148 +424,85 @@
         const projects = [
             {
                 id: 1,
-                title: "Smart Campus Navigation",
-                category: "Mobile App",
-                description: "An innovative AR-based navigation app helping students find their way around campus with real-time directions and building information.",
-                status: "completed",
-                team: 4,
-                fullDescription: "This project revolutionizes campus navigation by integrating augmented reality technology with GPS tracking. Students can point their phones at buildings to see information overlays, find the shortest routes to classes, and discover campus facilities.",
-                objectives: [
-                    "Reduce time students spend finding classrooms",
-                    "Provide real-time campus event information",
-                    "Create an accessible interface for all users",
-                    "Integrate with campus services"
+                title: "BrewConnect",
+                category: "1st Year",
+                module: "Computing Challenge",
+                description: "A simple C# software about coffee made for demonstrating SDLC in a practical manner. Instead of just presenting about SDLC, we created a real demo app to showcase the entire software development lifecycle.",
+                year: "1st Year",
+                team: 7,
+                fullDescription: "BrewConnect is an educational project developed to demonstrate the Software Development Life Cycle (SDLC) in a practical, hands-on manner. Rather than creating a theoretical presentation, our team built a fully functional C# application centered around coffee management to showcase each phase of the SDLC process.",
+                purpose: "The primary purpose of this project was to learn and present SDLC concepts through practical implementation. This approach allowed us to experience firsthand the challenges and best practices of software development, from initial planning through deployment.",
+                keyFeatures: [
+                    "Practical demonstration of SDLC phases",
+                    "Coffee management functionality",
+                    "Built using C# and .NET framework",
+                    "Comprehensive documentation of development process",
+                    "Team-based development experience"
                 ],
-                technologies: ["React Native", "ARKit", "Firebase", "Google Maps API"],
-                teamMembers: [
-                    { name: "Sarah Johnson", role: "Project Lead" },
-                    { name: "Mike Chen", role: "AR Developer" },
-                    { name: "Emily Rodriguez", role: "Backend Developer" },
-                    { name: "James Kim", role: "UI/UX Designer" }
-                ],
-                duration: "6 months",
-                outcome: "Successfully deployed to 500+ students with 4.8/5 rating"
+                technologies: ["C#", ".NET Framework", "Software Development Lifecycle"],
+                teamMembers: ["Vishal", "Shamal", "Piushan", "Mirco", "Dhanuja", "Tenura", "Isuru"],
+                moduleInfo: "Computing Challenge - 1st Year",
+                githubRepo: "https://github.com/VishalRashmika/BrewConnect",
+                outcome: "Successfully demonstrated all phases of SDLC through a working application"
             },
             {
                 id: 2,
-                title: "AI Study Buddy",
-                category: "AI/ML",
-                description: "Machine learning powered study assistant that creates personalized quiz questions and study plans based on your learning patterns.",
-                status: "ongoing",
-                team: 3,
-                fullDescription: "An intelligent tutoring system that adapts to individual learning styles. The AI analyzes study habits, identifies weak areas, and generates customized content to optimize learning efficiency.",
-                objectives: [
-                    "Personalize learning experiences for each student",
-                    "Identify knowledge gaps automatically",
-                    "Generate practice questions from course materials",
-                    "Track progress over time"
+                title: "PopQuest",
+                category: "1st Year",
+                module: "Computing Challenge",
+                description: "A non-code based quiz developed in Thunkable focused on making learning more interactive for children. Fully managed on GitHub following Agile principles throughout development.",
+                year: "1st Year",
+                team: 7,
+                fullDescription: "PopQuest is an innovative educational mobile quiz application designed to make learning more engaging and interactive for children. Built using Thunkable's no-code platform, this project demonstrates how modern development methodologies can be applied even in non-traditional coding environments.",
+                purpose: "This project was created to explore Agile development principles in practice while developing an educational tool for children. The entire project lifecycle was managed through GitHub, showcasing professional project management practices.",
+                keyFeatures: [
+                    "Interactive quiz format designed for children",
+                    "Built with Thunkable (no-code platform)",
+                    "Agile principles and artifacts implemented",
+                    "Complete GitHub project management",
+                    "Fully open-source project",
+                    "Child-friendly UI/UX design",
+                    "Engaging learning experience"
                 ],
-                technologies: ["Python", "TensorFlow", "Natural Language Processing", "Django"],
-                teamMembers: [
-                    { name: "Alex Thompson", role: "ML Engineer" },
-                    { name: "Priya Patel", role: "Data Scientist" },
-                    { name: "David Lee", role: "Full Stack Developer" }
-                ],
-                duration: "8 months (ongoing)",
-                outcome: "Currently in beta testing with 100 students"
+                technologies: ["Thunkable", "Agile Methodology", "GitHub Project Management"],
+                teamMembers: ["Vishal", "Shamal", "Piushan", "Mirco", "Dhanuja", "Tenura", "Isuru"],
+                moduleInfo: "Computing Challenge - 1st Year",
+                githubOrg: "https://github.com/PopQuest",
+                officialWeb: "https://popquest.github.io/",
+                outcome: "Released as a fully open-source educational tool with complete Agile documentation"
             },
             {
                 id: 3,
-                title: "EcoTrack Dashboard",
-                category: "Web Development",
-                description: "Interactive web platform tracking university sustainability metrics including energy usage, waste management, and carbon footprint.",
-                status: "completed",
-                team: 5,
-                fullDescription: "A comprehensive sustainability tracking system that visualizes environmental data across campus. Features real-time monitoring, historical trends, and predictive analytics for resource management.",
-                objectives: [
-                    "Monitor campus environmental impact",
-                    "Visualize sustainability trends",
-                    "Enable data-driven decision making",
-                    "Engage students in sustainability efforts"
-                ],
-                technologies: ["React", "Node.js", "MongoDB", "Chart.js", "WebSocket"],
-                teamMembers: [
-                    { name: "Lisa Anderson", role: "Frontend Developer" },
-                    { name: "Tom Bradley", role: "Backend Developer" },
-                    { name: "Nina Foster", role: "Data Analyst" },
-                    { name: "Robert Mills", role: "DevOps Engineer" },
-                    { name: "Sophie Turner", role: "UX Designer" }
-                ],
-                duration: "5 months",
-                outcome: "Adopted by campus sustainability office for official reporting"
-            },
-            {
-                id: 4,
-                title: "Smart Classroom System",
-                category: "IoT",
-                description: "IoT-based classroom management system controlling lighting, temperature, and occupancy tracking for optimal learning environments.",
-                status: "planning",
-                team: 4,
-                fullDescription: "An integrated IoT solution that automates classroom environmental controls. Sensors monitor occupancy, air quality, and lighting to create ideal learning conditions while optimizing energy consumption.",
-                objectives: [
-                    "Automate classroom environmental controls",
-                    "Reduce energy consumption",
-                    "Monitor air quality and comfort levels",
-                    "Provide usage analytics to administration"
-                ],
-                technologies: ["Arduino", "Raspberry Pi", "MQTT", "Python", "InfluxDB"],
-                teamMembers: [
-                    { name: "Kevin Zhang", role: "IoT Developer" },
-                    { name: "Maria Garcia", role: "Hardware Engineer" },
-                    { name: "Chris Wong", role: "Systems Architect" },
-                    { name: "Amanda Brooks", role: "Data Engineer" }
-                ],
-                duration: "Planned 7 months",
-                outcome: "Awaiting approval and funding"
-            },
-            {
-                id: 5,
-                title: "Virtual Lab Simulator",
-                category: "Web Development",
-                description: "Web-based virtual laboratory for chemistry experiments allowing students to conduct safe experiments online with realistic simulations.",
-                status: "ongoing",
+                title: "Software Requirements and Design Modelling",
+                category: "2nd Year",
+                module: "Software Development",
+                description: "A comprehensive presentation covering Software Requirements Specification (SRS), UML models, and CRC cards to learn planning and requirement analysis phases in SDLC.",
+                year: "2nd Year",
                 team: 6,
-                fullDescription: "A comprehensive virtual laboratory platform that simulates real chemistry experiments. Students can safely explore dangerous reactions, practice techniques, and learn experimental design in a risk-free environment.",
-                objectives: [
-                    "Provide safe experimental environment",
-                    "Reduce laboratory resource costs",
-                    "Enable remote learning capabilities",
-                    "Track student experiment progress"
+                fullDescription: "This project focuses on the critical planning and analysis phases of software development. Through creating detailed SRS documents, UML diagrams, and CRC cards, our team explored the essential skills needed for proper software architecture and requirements engineering.",
+                purpose: "The objective was to master the planning and requirement analysis phases of the SDLC by creating professional-grade documentation and design models. This foundational work is crucial for any successful software project.",
+                keyFeatures: [
+                    "Complete Software Requirements Specification (SRS)",
+                    "Comprehensive UML modeling (Use Case, Class, Sequence, Activity diagrams)",
+                    "CRC (Class-Responsibility-Collaboration) cards",
+                    "Requirement analysis and documentation",
+                    "System architecture design",
+                    "Professional presentation format"
                 ],
-                technologies: ["Three.js", "WebGL", "React", "Physics Engine", "AWS"],
-                teamMembers: [
-                    { name: "Dr. Rachel Green", role: "Faculty Advisor" },
-                    { name: "Jake Morrison", role: "3D Developer" },
-                    { name: "Olivia Chen", role: "Physics Programmer" },
-                    { name: "Lucas Brown", role: "Frontend Developer" },
-                    { name: "Emma Wilson", role: "Content Creator" },
-                    { name: "Noah Davis", role: "QA Engineer" }
+                deliverables: [
+                    "Software Requirements Specification document",
+                    "Use Case Diagrams",
+                    "Class Diagrams",
+                    "Sequence Diagrams",
+                    "Activity Diagrams",
+                    "CRC Cards",
+                    "Comprehensive presentation"
                 ],
-                duration: "10 months (ongoing)",
-                outcome: "Alpha version tested by 50 chemistry students"
-            },
-            {
-                id: 6,
-                title: "Campus Event Manager",
-                category: "Mobile App",
-                description: "Mobile application for discovering, creating, and managing campus events with integrated social features and ticketing system.",
-                status: "completed",
-                team: 3,
-                fullDescription: "A unified platform for all campus events, from club meetings to major concerts. Features include event discovery, RSVP management, ticket sales, and social engagement tools.",
-                objectives: [
-                    "Centralize campus event information",
-                    "Streamline event organization",
-                    "Increase student engagement",
-                    "Provide analytics to event organizers"
-                ],
-                technologies: ["Flutter", "Firebase", "Stripe API", "Push Notifications"],
-                teamMembers: [
-                    { name: "Isabella Martinez", role: "Mobile Developer" },
-                    { name: "Ethan Taylor", role: "Backend Developer" },
-                    { name: "Ava Johnson", role: "UI/UX Designer" }
-                ],
-                duration: "4 months",
-                outcome: "3000+ downloads with 200+ events listed monthly"
+                technologies: ["UML", "Requirements Engineering", "System Design", "Documentation"],
+                teamMembers: ["Vishal", "Shamal", "Piushan", "Mirco", "Dhanuja", "Tenura"],
+                moduleInfo: "Software Development - 2nd Year",
+                githubRepo: "https://github.com/VishalRashmika/Presentation",
+                outcome: "Developed comprehensive understanding of software planning and requirements analysis"
             }
         ];
 
@@ -545,19 +515,16 @@
                 card.className = 'project-card';
                 card.onclick = () => showDetail(project.id);
                 
-                const statusClass = `status-${project.status}`;
-                const statusText = project.status.charAt(0).toUpperCase() + project.status.slice(1);
-                
                 card.innerHTML = `
                     <div class="project-header">
                         <h3>${project.title}</h3>
-                        <span class="project-category">${project.category}</span>
+                        <span class="project-category">${project.module}</span>
                     </div>
                     <div class="project-body">
                         <p class="project-description">${project.description}</p>
                         <div class="project-meta">
                             <span class="project-team">👥 ${project.team} members</span>
-                            <span class="project-status ${statusClass}">${statusText}</span>
+                            <span class="project-year">${project.year}</span>
                         </div>
                     </div>
                 `;
@@ -570,13 +537,36 @@
             const project = projects.find(p => p.id === projectId);
             const detailContent = document.getElementById('detailContent');
             
-            detailContent.innerHTML = `
+            let linksHTML = '';
+            if (project.githubRepo) {
+                linksHTML += `<a href="${project.githubRepo}" target="_blank" class="github-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub Repository
+                </a>`;
+            }
+            if (project.githubOrg) {
+                linksHTML += `<a href="${project.githubOrg}" target="_blank" class="github-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub Organization
+                </a>`;
+            }
+            if (project.officialWeb) {
+                linksHTML += `<a href="${project.officialWeb}" target="_blank" class="github-link web-link">
+                    🌐 Official Website
+                </a>`;
+            }
+            
+            let contentHTML = `
                 <div class="detail-header">
                     <h2>${project.title}</h2>
                     <div class="detail-tags">
-                        <span class="tag">${project.category}</span>
+                        <span class="tag">${project.module}</span>
                         <span class="tag">👥 ${project.team} Team Members</span>
-                        <span class="tag">⏱️ ${project.duration}</span>
+                        <span class="tag">📚 ${project.year}</span>
                     </div>
                 </div>
                 
@@ -586,14 +576,36 @@
                 </div>
                 
                 <div class="detail-section">
-                    <h3>🎯 Objectives</h3>
-                    <ul>
-                        ${project.objectives.map(obj => `<li>${obj}</li>`).join('')}
-                    </ul>
+                    <h3>🎯 Purpose</h3>
+                    <p>${project.purpose}</p>
                 </div>
-                
+            `;
+
+            if (project.keyFeatures) {
+                contentHTML += `
+                    <div class="detail-section">
+                        <h3>✨ Key Features</h3>
+                        <ul>
+                            ${project.keyFeatures.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            if (project.deliverables) {
+                contentHTML += `
+                    <div class="detail-section">
+                        <h3>📦 Deliverables</h3>
+                        <ul>
+                            ${project.deliverables.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            contentHTML += `
                 <div class="detail-section">
-                    <h3>💻 Technologies Used</h3>
+                    <h3>💻 Technologies & Methodologies</h3>
                     <div class="detail-tags">
                         ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
                     </div>
@@ -603,19 +615,36 @@
                     <h3>👨‍💻 Team Members</h3>
                     <div class="team-grid">
                         ${project.teamMembers.map(member => `
-                            <div class="team-member">
-                                <strong>${member.name}</strong>
-                                <span>${member.role}</span>
-                            </div>
+                            <div class="team-member">${member}</div>
                         `).join('')}
                     </div>
                 </div>
                 
                 <div class="detail-section">
+                    <h3>📚 Module Information</h3>
+                    <p>${project.moduleInfo}</p>
+                </div>
+            `;
+
+            if (linksHTML) {
+                contentHTML += `
+                    <div class="detail-section">
+                        <h3>🔗 Project Links</h3>
+                        <div class="github-links">
+                            ${linksHTML}
+                        </div>
+                    </div>
+                `;
+            }
+
+            contentHTML += `
+                <div class="detail-section">
                     <h3>📊 Outcome</h3>
                     <p>${project.outcome}</p>
                 </div>
             `;
+            
+            detailContent.innerHTML = contentHTML;
             
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('detailPage').classList.add('active');
@@ -642,7 +671,8 @@
                 filtered = filtered.filter(p => 
                     p.title.toLowerCase().includes(searchTerm) ||
                     p.description.toLowerCase().includes(searchTerm) ||
-                    p.category.toLowerCase().includes(searchTerm)
+                    p.module.toLowerCase().includes(searchTerm) ||
+                    p.teamMembers.some(member => member.toLowerCase().includes(searchTerm))
                 );
             }
             
@@ -662,7 +692,8 @@
                 if (searchTerm) {
                     filtered = filtered.filter(p => 
                         p.title.toLowerCase().includes(searchTerm) ||
-                        p.description.toLowerCase().includes(searchTerm)
+                        p.description.toLowerCase().includes(searchTerm) ||
+                        p.module.toLowerCase().includes(searchTerm)
                     );
                 }
                 
